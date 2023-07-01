@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Program Files (x86)\\Acumatica ERP\\AcmProfit21V110\\App_Data\\Projects\\PX.Adjustments.Ext\\PX.Adjustments.Ext\\PX.Adjustments.Ext.csproj": {}
+  },
+  "projects": {
+    "C:\\Program Files (x86)\\Acumatica ERP\\AcmProfit21V110\\App_Data\\Projects\\PX.Adjustments.Ext\\PX.Adjustments.Ext\\PX.Adjustments.Ext.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Program Files (x86)\\Acumatica ERP\\AcmProfit21V110\\App_Data\\Projects\\PX.Adjustments.Ext\\PX.Adjustments.Ext\\PX.Adjustments.Ext.csproj",
+        "projectName": "PX.Adjustments.Ext",
+        "projectPath": "C:\\Program Files (x86)\\Acumatica ERP\\AcmProfit21V110\\App_Data\\Projects\\PX.Adjustments.Ext\\PX.Adjustments.Ext\\PX.Adjustments.Ext.csproj",
+        "packagesPath": "C:\\Users\\Mehdi.Hasanov\\.nuget\\packages\\",
+        "outputPath": "C:\\Program Files (x86)\\Acumatica ERP\\AcmProfit21V110\\App_Data\\Projects\\PX.Adjustments.Ext\\PX.Adjustments.Ext\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "C:\\Users\\Mehdi.Hasanov\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "dependencies": {
+            "Microsoft.Bcl.AsyncInterfaces": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "System.Runtime.CompilerServices.Unsafe": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}
