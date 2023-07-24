@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "/Fce5RdZSz01mpEfnX89q9To/nhTGc5ZKXqqIy4vrNIJGC7oSGFvTHqyN2J6DjmdRUsl8dWchtpqc2SwvWj75w==",
+  "success": true,
+  "projectFilePath": "C:\\Program Files (x86)\\Acumatica ERP\\AcmProfit21V110\\App_Data\\Projects\\PX.Adjustments.Ext\\PX.Adjustments.Ext\\PX.Adjustments.Ext.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Mehdi.Hasanov\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\5.0.0\\microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
+    "C:\\Users\\Mehdi.Hasanov\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
+    "C:\\Users\\Mehdi.Hasanov\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512"
+  ],
+  "logs": []
+}
