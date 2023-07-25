@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Acumatica ERP\AcmProfit21V110\App_Data\Projects\PX.Adjustments.Ext\PX.Adjustments.Ext.sln"

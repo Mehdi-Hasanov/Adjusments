@@ -1,13 +1,15 @@
 using PX.Data;
 using System;
 using System.Collections;
-using static PX.Objects.IN.INTranExt;
+using static PX.Objects.IN.INTranAdjustmentsExt;
 
 namespace PX.Objects.IN
 {
     [PXProtectedAccess]
     public class INAdjustmentEntry_Extension : PXGraphExtension<PX.Objects.IN.INAdjustmentEntry>
     {
+        private decimal? currentTotalQty;
+        private decimal? currentTotalCost;
 
         #region Helper Methods
 
@@ -24,7 +26,7 @@ namespace PX.Objects.IN
             INItemSite data = PXSelectReadonly<INItemSite, Where<INItemSite.inventoryID, Equal<Required<INItemSite.inventoryID>>,
                                                     And<INItemSite.siteID, Equal<Required<INItemSite.siteID>>>>>
                                                     .SelectWindowed(Base, 0, 1, tran.InventoryID, tran.SiteID);
-            INTranExt tranExt = tran.GetExtension<INTranExt>();
+            INTranAdjustmentsExt tranExt = tran.GetExtension<INTranAdjustmentsExt>();
             return data?.AvgCost.GetValueOrDefault(0m) ?? 0m * tranExt?.UsrCurrentQtyOnHand.GetValueOrDefault(0m) ?? 0m;
 
         }
@@ -76,7 +78,7 @@ namespace PX.Objects.IN
                 if (args.Cache == null || args.Row == null || args.Row.InventoryID == null
                     || args.Row.SiteID == null) return;
                 INTran row = args.Row;
-                INTranExt rowExt = row.GetExtension<INTranExt>();
+                INTranAdjustmentsExt rowExt = row.GetExtension<INTranAdjustmentsExt>();
                 if (!args.Row.Released.GetValueOrDefault(false))
                 {
                     rowExt.UsrCurrentQtyOnHand = getCurrentQtyOnHand(row);
@@ -90,8 +92,49 @@ namespace PX.Objects.IN
         public virtual void _(Events.RowSelected<INRegister> args)
         {
             if (args.Cache == null || args.Row == null || !args.Row.Released.GetValueOrDefault(false)) return;
-            PXUIFieldAttribute.SetDisplayName<INTranExt.usrCurrentQtyOnHand>(args.Cache, "Original Qty. On Hand");
-            PXUIFieldAttribute.SetDisplayName<INTranExt.usrCurrentTranCost>(args.Cache, "Original Ext. Cost");
+            PXUIFieldAttribute.SetDisplayName<INTranAdjustmentsExt.usrCurrentQtyOnHand>(args.Cache, "Original Qty. On Hand");
+            PXUIFieldAttribute.SetDisplayName<INTranAdjustmentsExt.usrCurrentTranCost>(args.Cache, "Original Ext. Cost");
+        }
+        public virtual void _(Events.FieldSelecting<INRegister, INRegisterAdjustmentsExt.usrCurrentTotalQty> args)
+        {
+            if (args.Cache == null || args.Row == null) return;
+            INRegister row = (INRegister)args.Row;
+            decimal? returnValue = 0;
+            foreach (INTran tran in Base.transactions.Select())
+            {
+                var tranExt = tran.GetExtension<INTranAdjustmentsExt>();
+                returnValue += tranExt.UsrCurrentQtyOnHand;
+            }
+            args.ReturnValue = returnValue;
+            currentTotalQty = returnValue;
+        }
+
+        public virtual void _(Events.FieldSelecting<INRegister, INRegisterAdjustmentsExt.usrCurrentTotalTranCost> args)
+        {
+            if (args.Cache == null || args.Row == null) return;
+            INRegister row = (INRegister)args.Row;
+            decimal? returnValue = 0;
+            foreach (INTran tran in Base.transactions.Select())
+            {
+                var tranExt = tran.GetExtension<INTranAdjustmentsExt>();
+                returnValue += tranExt.UsrCurrentTranCost;
+            }
+            args.ReturnValue = returnValue;
+            currentTotalCost = returnValue;
+        }
+
+        public virtual void _(Events.FieldSelecting<INRegister, INRegisterAdjustmentsExt.usrAdjustedTotalQty> args)
+        {
+            if (args.Cache == null || args.Row == null) return;
+            INRegister row = (INRegister)args.Row;
+            args.ReturnValue = currentTotalQty + row.TotalQty;
+        }
+
+        public virtual void _(Events.FieldSelecting<INRegister, INRegisterAdjustmentsExt.usrAdjustedTotalTranCost> args)
+        {
+            if (args.Cache == null || args.Row == null) return;
+            INRegister row = (INRegister)args.Row;
+            args.ReturnValue = currentTotalCost + row.TotalCost;
         }
 
         protected virtual void _(Events.FieldUpdated<INTran, INTran.inventoryID> args)
@@ -99,7 +142,7 @@ namespace PX.Objects.IN
             if (args.Cache == null || args.Row == null || args.Row.InventoryID == null
                 || args.Row.SiteID == null) return;
             INTran row = args.Row;
-            INTranExt rowExt = row.GetExtension<INTranExt>();
+            INTranAdjustmentsExt rowExt = row.GetExtension<INTranAdjustmentsExt>();
             rowExt.UsrCurrentQtyOnHand = getCurrentQtyOnHand(row);
             rowExt.UsrAdjustedQtyOnHand = rowExt.UsrCurrentQtyOnHand + row.Qty;
 
@@ -112,7 +155,7 @@ namespace PX.Objects.IN
             if (args.Cache == null || args.Row == null || args.Row.InventoryID == null
                 || args.Row.SiteID == null) return;
             INTran row = args.Row;
-            INTranExt rowExt = row.GetExtension<INTranExt>();
+            INTranAdjustmentsExt rowExt = row.GetExtension<INTranAdjustmentsExt>();
             rowExt.UsrCurrentQtyOnHand = getCurrentQtyOnHand(row);
             rowExt.UsrAdjustedQtyOnHand = rowExt.UsrCurrentQtyOnHand + row.Qty;
 
@@ -125,7 +168,7 @@ namespace PX.Objects.IN
             if (args.Cache == null || args.Row == null || args.Row.InventoryID == null
                 || args.Row.SiteID == null) return;
             INTran row = args.Row;
-            INTranExt rowExt = row.GetExtension<INTranExt>();
+            INTranAdjustmentsExt rowExt = row.GetExtension<INTranAdjustmentsExt>();
             rowExt.UsrCurrentQtyOnHand = getCurrentQtyOnHand(row);
             rowExt.UsrAdjustedQtyOnHand = rowExt.UsrCurrentQtyOnHand + row.Qty;
 
@@ -138,7 +181,7 @@ namespace PX.Objects.IN
             if (args.Cache == null || args.Row == null || args.Row.InventoryID == null
                 || args.Row.SiteID == null) return;
             INTran row = args.Row;
-            INTranExt rowExt = row.GetExtension<INTranExt>();
+            INTranAdjustmentsExt rowExt = row.GetExtension<INTranAdjustmentsExt>();
             rowExt.UsrAdjustedQtyOnHand = rowExt.UsrCurrentQtyOnHand + row.Qty;
         }
 
@@ -147,7 +190,7 @@ namespace PX.Objects.IN
             if (args.Cache == null || args.Row == null || args.Row.InventoryID == null
                 || args.Row.SiteID == null) return;
             INTran row = args.Row;
-            INTranExt rowExt = row.GetExtension<INTranExt>();
+            INTranAdjustmentsExt rowExt = row.GetExtension<INTranAdjustmentsExt>();
             rowExt.UsrAdjustedTranCost = rowExt.UsrCurrentTranCost + row.TranCost;
         }
 

@@ -58,7 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="INAdjustmentEntry.cs" />
-    <Compile Include="INTranExt.cs" />
+    <Compile Include="DAC\INRegisterAdjustmentsExt.cs" />
+    <Compile Include="DAC\INTranAdjustmentsExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
