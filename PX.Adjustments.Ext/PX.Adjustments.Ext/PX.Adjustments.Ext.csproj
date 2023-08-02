@@ -57,9 +57,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="INAdjustmentEntry.cs" />
-    <Compile Include="DAC\INRegisterAdjustmentsExt.cs" />
-    <Compile Include="DAC\INTranAdjustmentsExt.cs" />
+    <Compile Include="IN\DAC\InventoryItemAdjustmentsExt.cs" />
+    <Compile Include="IN\INReleaseProcessPXExt.cs" />
+    <Compile Include="IN\INAdjustmentEntryPXExt.cs" />
+    <Compile Include="IN\DAC\INRegisterAdjustmentsExt.cs" />
+    <Compile Include="IN\DAC\INTranAdjustmentsExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

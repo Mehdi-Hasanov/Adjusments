@@ -1,4 +1,0 @@
-﻿<Table TableName="INTran">
-    <Column TableName="INTran" ColumnName="UsrCurrentQtyOnHand" ColumnType="decimal" AllowNull="True" DecimalPrecision="6" DecimalLength="25" IsNewColumn="True" IsUnicode="True" />
-    <Column TableName="INTran" ColumnName="UsrCurrentTranCost" ColumnType="decimal" AllowNull="True" DecimalPrecision="6" DecimalLength="25" IsNewColumn="True" IsUnicode="True" />
-</Table>
